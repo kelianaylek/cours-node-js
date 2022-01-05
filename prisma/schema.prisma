@@ -8,10 +8,19 @@ datasource db {
 }
 
 model users {
-  user_id    Int       @id @default(autoincrement())
-  username   String    @db.VarChar(255)
-  password   String    @db.VarChar(255)
-  email      String    @unique @db.VarChar(255)
-  created_on DateTime  @db.Timestamp(6)
-  last_login DateTime? @db.Timestamp(6)
+  user_id    Int        @id @default(autoincrement())
+  username   String     @db.VarChar(255)
+  password   String     @db.VarChar(255)
+  email      String     @unique @db.VarChar(255)
+  created_on DateTime   @db.Timestamp(6)
+  last_login DateTime?  @db.Timestamp(6)
+  messages   messages[]
+}
+
+model messages {
+  id      Int      @unique(map: "messages_id_uindex") @default(autoincrement())
+  content String   @db.VarChar
+  sendAt  DateTime @db.Date
+  user_id Int
+  users   users    @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: "messages_users_user_id_fk")
 }
