@@ -5,18 +5,19 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+
 module.exports = app;
+
+app.use(express.static(__dirname));
+
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
-  res.sendFile(__dirname + '/script.js');
-
+  // res.sendFile(__dirname + '/script.js');
 });
 
 io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-  });
+  console.log('a user connected');
 });
 
 server.listen(3000, () => {
