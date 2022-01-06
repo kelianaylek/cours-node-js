@@ -10,11 +10,20 @@ var messagesRouter = require('./routes/messages');
 
 var app = express();
 
+const port = process.env.PORT || 8000;
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  //Autorisation modification de la sécurité de l'api
+  res.header('Access-Control-Expose-Headers','Authorization');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
