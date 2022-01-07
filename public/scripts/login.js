@@ -7,7 +7,7 @@ form.addEventListener('submit', async(e) => {
     const password = document.querySelector('#password').value;
 
     try{
-        const response = await fetch('http://127.0.0.1:3000/connection', {
+        const response = await fetch('http://127.0.0.1:3000/login', {
             method: 'POST',
             //A chaque requette put ou post on précise que c'est du json
             headers: {

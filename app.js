@@ -3,11 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var http = require('http');
+var socket = require('socket.io')
 
-var indexRouter = require('./routes/front/index');
+
 var usersRouter = require('./routes/front/users');
 var messagesRouter = require('./routes/front/messages');
 var loginRouter = require('./routes/front/login');
+
+var messagesApi = require('./routes/api/messages');
 var loginApi = require('./routes/api/login');
 
 var app = express();
@@ -20,7 +24,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
+
 app.use((req, res, next) => {
   //Autorisation modification de la sécurité de l'api
   res.header('Access-Control-Expose-Headers','Authorization');
@@ -29,11 +34,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', indexRouter);
+app.use('/', loginRouter);
 app.use('/users', usersRouter);
-app.use('/messages', messagesRouter);
-app.use('/login', loginRouter);
-app.use('/connection', loginApi);
+app.use('/chat', messagesRouter);
+app.use('/login', loginApi);
+app.use('/messages', messagesApi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
