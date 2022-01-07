@@ -3,8 +3,6 @@ var form = document.getElementById('form');
 var messages = document.getElementById('messages')
 var input = document.getElementById('input');
 
-
-
 form.addEventListener('submit', function(e) {
   e.preventDefault();
   if (input.value) {
