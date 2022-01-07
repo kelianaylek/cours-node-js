@@ -21,7 +21,6 @@ const io = new Server(server);
 
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
     io.emit('chat message', msg);
   });
 });
@@ -31,11 +30,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-const cors = require('cors');
-app.use(cors({
-  origin: '*'
-}));
 
 app.use((req, res, next) => {
   //Autorisation modification de la sécurité de l'api
