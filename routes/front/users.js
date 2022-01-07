@@ -13,6 +13,16 @@ app.get('/', async function(req, res, next) {
   res.status(200).json(users);
 });
 
+app.get('/user/:id', async function(req, res, next) {
+  const { id } = req.params
+  const user = await prisma.users.findUnique({
+    where: {
+        user_id: parseInt(id),
+    },
+})
+  res.status(200).json(user);
+});
+
 /* POST users. */
 app.post('/create', async (req, res) => {
   const { username, password, email } = req.body

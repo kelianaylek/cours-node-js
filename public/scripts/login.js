@@ -1,3 +1,4 @@
+
 const form = document.querySelector('#form')
 
 form.addEventListener('submit', async(e) => {
@@ -18,9 +19,16 @@ form.addEventListener('submit', async(e) => {
         })
     
         const data = await response.json()
-    
+    console.log(data)
         if(data){
-            console.log(data)
+          
+            localStorage.setItem('user', JSON.stringify(data))
+            var newToken = localStorage.getItem('user')
+            console.log(JSON.parse(newToken))
+
+            window.location.href = "/chat";
+
+         
         } else {
             alert('no data')
         }
