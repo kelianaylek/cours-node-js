@@ -12,7 +12,8 @@ var loginApi = require('./routes/api/login');
 
 var app = express();
 
-
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 const port = process.env.PORT || 8000;
 

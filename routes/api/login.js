@@ -1,10 +1,13 @@
 var express = require('express');
 const app = express();
 const { PrismaClient } = require('@prisma/client')
-
+var jwt = require('jsonwebtoken');
 const prisma = new PrismaClient()
 const bcrypt = require("bcrypt");
 const {PrismaClientValidationError} = require("@prisma/client/runtime");
+
+
+
 
 app.post('/', async(req, res, next) => {
     const {email, password} = req.body
@@ -24,15 +27,20 @@ app.post('/', async(req, res, next) => {
             console.log('wrong password')
         }
     }
-    
+  
+    const token = jwt.sign({ user }, process.env.TOKEN_SECRET, { expiresIn: '1 day' }); 
+    console.log(token);
+
 
     return res.json({
         email: email,
-        password: password
+        password: password,
+        token : token
     });
 
 
 })
 
 module.exports = app;
+
 

@@ -16,5 +16,7 @@ const getResponse = async () => {
     const name = data.msg
     namePElement.innerHTML = name;
 }
+console.log(JSON.parse(localStorage.getItem('user')))
+
 
 getResponse()
