@@ -3,9 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var http = require('http');
-var socket = require('socket.io')
-
 
 var usersRouter = require('./routes/front/users');
 var messagesRouter = require('./routes/front/messages');
@@ -16,6 +13,17 @@ var loginApi = require('./routes/api/login');
 
 var app = express();
 
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+    io.emit('chat message', msg);
+  });
+});
 
 
 const port = process.env.PORT || 8000;
@@ -24,7 +32,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   //Autorisation modification de la sécurité de l'api
@@ -54,6 +62,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.json({err : err });
+});
+
+server.listen(3000, () => {
+  console.log('listening on *:3000');
 });
 
 module.exports = app;
