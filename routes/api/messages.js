@@ -4,9 +4,10 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 const {PrismaClientValidationError} = require("@prisma/client/runtime");
-   
+
 
 const app = express();
+
 
 
 /* GET messages. */

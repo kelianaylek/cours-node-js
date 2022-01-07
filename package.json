@@ -6,7 +6,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node app.js"
   },
   "dependencies": {
     "@prisma/client": "^3.7.0",
