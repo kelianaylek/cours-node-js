@@ -17,8 +17,6 @@ const getResponse = async () => {
 
     const data = await response.json()
 
-    console.log(data)
-
     data.forEach((message) => {
         var li = document.createElement("li");
         li.appendChild(document. createTextNode(message.content));
@@ -58,4 +56,5 @@ socket.on('chat message', function(msg) {
     messages.appendChild(item);
     console.log(item)
 });
+
 getResponse()
