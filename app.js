@@ -24,8 +24,12 @@ io.on('connection', (socket) => {
   });
 });
 
-
-const port = process.env.PORT || 8000;
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+    io.emit('chat message', msg);
+  });
+});
 
 app.use(logger('dev'));
 app.use(express.json());

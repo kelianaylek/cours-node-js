@@ -6,7 +6,7 @@ var input = document.getElementById('input');
 var socket = io();
 
 const getResponse = async () => {
-    const response = await fetch('http://127.0.0.1:3000/messages', {
+    const response = await fetch('https://cours-node-js.herokuapp.com/messages', {
         method: 'GET',
         //A chaque requette put ou post on précise que c'est du json
         headers: {
