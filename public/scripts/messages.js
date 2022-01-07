@@ -14,7 +14,6 @@ const getResponse = async () => {
             'Content-Type': 'application/json',
         },
     })
-
     const data = await response.json()
 
     data.forEach((message) => {
@@ -28,7 +27,7 @@ const getResponse = async () => {
 form.addEventListener('submit', async(e) => {
     e.preventDefault();
     try{
-        await fetch('http://127.0.0.1:3000/messages/create/2', {
+        await fetch('https://cours-node-js.herokuapp.com/messages/create/2', {
             method: 'POST',
             //A chaque requette put ou post on précise que c'est du json
             headers: {
