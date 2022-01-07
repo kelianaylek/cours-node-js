@@ -30,7 +30,7 @@ const getResponse = async () => {
 form.addEventListener('submit', async(e) => {
     e.preventDefault();
     try{
-        const response = await fetch('http://127.0.0.1:3000/messages/create/2', {
+        await fetch('http://127.0.0.1:3000/messages/create/2', {
             method: 'POST',
             //A chaque requette put ou post on précise que c'est du json
             headers: {
@@ -43,20 +43,19 @@ form.addEventListener('submit', async(e) => {
             
         })
 
-    const data = await response.json()
-    console.log(data.content)
-    socket.emit('chat message', data.content);
+    socket.emit('chat message', input.value);
 
-    socket.on('chat message', function(msg) {
-        var item = document.createElement('li');
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-      });
 
     } catch(e) {
-
+        console.log(e)
     }
   });
 
+
+socket.on('chat message', function(msg) {
+    var item = document.createElement('li');
+    item.textContent = msg;
+    messages.appendChild(item);
+    console.log(item)
+});
 getResponse()
