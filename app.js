@@ -4,11 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var messagesRouter = require('./routes/messages');
+var indexRouter = require('./routes/front/index');
+var usersRouter = require('./routes/front/users');
+var messagesRouter = require('./routes/front/messages');
+var loginRouter = require('./routes/front/login');
+var loginApi = require('./routes/api/login');
 
 var app = express();
+
+
 
 const port = process.env.PORT || 8000;
 
@@ -28,6 +32,8 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/messages', messagesRouter);
+app.use('/login', loginRouter);
+app.use('/connection', loginApi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

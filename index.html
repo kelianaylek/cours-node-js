@@ -16,17 +16,6 @@
     </div>
 </div>
 
-<script>
-    const namePElement = document.querySelector('#name');
-
-    fetch('http://127.0.0.1:3000/username')
-        .then((response) => {
-            response.json()
-        })
-        .then((data) => {
-            const name = data.msg;
-            namePElement.textContent = name;
-        });
-</script>
+<script src="scripts/index.js"></script>
 </body>
 </html>
